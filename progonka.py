@@ -1,12 +1,31 @@
 import numpy as np
-def sweep(a, b, c, f, n):
-    alpha = np.array([0.0] * (n + 1))
-    beta = np.array([0.0] * (n + 1))
-    for i in range(n):
-        alpha[i + 1] = -c[i] / (a[i] * alpha[i] + b[i])
-        beta[i + 1] = (f[i] - a[i] * beta[i]) / (a[i] * alpha[i] + b[i])
-    x = np.array([0.0] * n)
-    x[n - 1] = beta[n]
-    for i in range(n - 2, -1, -1):
-        x[i] = alpha[i + 1] * x[i + 1] + beta[i + 1]
+
+
+def solution(a:np, b:np):
+
+    n = np.shape(a)
+    x = np.zeros((n))  # обнуление вектора решений
+    print('Размерность матрицы: ', n, 'x', n)
+
+    # Прямой ход
+    v = np.zeros((n))
+    u = np.zeros((n))
+    # для первой 0-й строки
+    v[0] = a[0,1] / (-a[0,0])
+    u[0] = (- b[0]) / (-a[0,0])
+    for i in range(1, n - 1):  # заполняем за исключением 1-й и (n-1)-й строк матрицы
+        v[i] = a[i,i+1] / (-a[i,i] - a[i,i-1] * v[i - 1])
+        u[i] = (a[i,i-1] * u[i - 1] - b[i]) / (-a[i,i] - a[i,i-1] * v[i - 1])
+    # для последней (n-1)-й строки
+    v[n - 1] = 0
+    u[n - 1] = (a[n-1,n-2] * u[n - 2] - b[n - 1]) / (-a[n-1,n-1] - a[n-1,n-2] * v[n - 2])
+
+    print('Прогоночные коэффициенты v: ', 'v', v)
+    print('Прогоночные коэффициенты u: ', 'u', u)
+
+    # Обратный ход
+    x[n - 1] = u[n - 1]
+    for i in range(n - 1, 0, -1):
+        x[i - 1] = v[i - 1] * x[i] + u[i - 1]
+
     return x
