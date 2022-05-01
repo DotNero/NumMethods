@@ -5,8 +5,9 @@
 import numpy as np
 from scipy.sparse import dia_matrix
 import coaffarif
+import config
 
-n:int = 40
+n:int = config.n
 h = 1/n
 def nptop(n):
     top = np.zeros((n))
@@ -31,10 +32,13 @@ def fvector(n):
     for i in range(n):
         fvec[i] = coaffarif.f(i,h)
     return(fvec)
+def rdiagmatrix(n):
+    matrixx = dia_matrix((matrixofdiagonals(n), [0, -1, 1]),shape=(n, n)).toarray()
+    return(matrixx)
 #def(alpha, betta, gamma ):
 #def(np.top, np.middle,np.bot):
 print(matrixofdiagonals(n))
 matrix = dia_matrix((np.array([[13, 14, 15, 28, 33], [15, 16, 18, 22, 32], [17, 18, 19, 44, 71]]), [0, -1, 1]),
             shape=(n, n)).toarray()
-matrixx = dia_matrix((matrixofdiagonals(n), [0, -1, 1]),shape=(n, n)).toarray()
+
 #это должно работать!!!
