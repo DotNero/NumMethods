@@ -13,7 +13,8 @@ class IterationDynamic(object):
         self._accuracy = accurancy.maxvectoraccuracy(self.x_new, self.x_old)
         self.x_new:np = x_new
         self.x_old:np = x_old
-        self.accuracyhistory = accurancy.maxvectoraccuracy(self.x_new, self.x_old)
+        self.accuracyhistory = np.zeros((len(x_new)))
+        self.accuracyhistory[0] = self._accuracy
     def state_version(self, itmark):
         self._itmark = itmark
         self._accuracy = accurancy.maxvectoraccuracy(self.x_new, self.x_old)
