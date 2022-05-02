@@ -30,7 +30,7 @@ def matrixofdiagonals(n):
 def fvector(n):
     fvec = np.zeros((n))
     for i in range(n):
-        fvec[i] = coaffarif.f(i,h)
+        fvec[i] = coaffarif.f(i,h)*(h*h)
     return(fvec)
 def rdiagmatrix(n):
     matrixx = dia_matrix((matrixofdiagonals(n), [0, -1, 1]),shape=(n, n)).toarray()
@@ -38,7 +38,7 @@ def rdiagmatrix(n):
 #def(alpha, betta, gamma ):
 #def(np.top, np.middle,np.bot):
 print(matrixofdiagonals(n))
-matrix = dia_matrix((np.array([[13, 14, 15, 28, 33], [15, 16, 18, 22, 32], [17, 18, 19, 44, 71]]), [0, -1, 1]),
-            shape=(n, n)).toarray()
+#matrix = dia_matrix((np.array([[13, 14, 15, 28, 33], [15, 16, 18, 22, 32], [17, 18, 19, 44, 71]]), [0, -1, 1]),
+#            shape=(n, n)).toarray()
 
 #это должно работать!!!

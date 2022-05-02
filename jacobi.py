@@ -53,12 +53,13 @@ def solution(matrix, fvec):
                 for j in range(n):
                     if (j != k): S = S + matrix[k,j] * I_D.x_new[j]
                 I_D.x_new[k] = fvec[k] / matrix[k, k] - S / matrix[k, k]
-                I_D.state_version(numberOfIter)
+
             if I_D.isNeedToComplete():  # проверка на выход
                 break
+            I_D.state_version(numberOfIter)
             numberOfIter += 1
 
 
-        print('Количество итераций на решение: ', I_D.itmarkget())
+        print('Количество итераций на решение: ', numberOfIter)
         return I_D
 

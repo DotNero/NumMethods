@@ -1,31 +1,31 @@
-import matplotlib as plt
+#import matplotlib as plt
 import numpy as np
 import config
 import accurancy
+import diagmatrix
 class IterationDynamic(object):
-    _itmark = 0
-    x_old:np = np.zeros((1))
-    x_new:np = np.zeros((1))
-    accuracy = 0
-    accuracyhistory = np.zeros((1))
     def __init__ (self, x_new:np, x_old:np):
-        self._itmark
-        self._accuracy = accurancy.maxvectoraccuracy(self.x_new, self.x_old)
-        self.x_new:np = x_new
-        self.x_old:np = x_old
-        self.accuracyhistory = np.zeros((len(x_new)))
+        self._itmark = 0
+        self.x_new: np = x_new
+        self.x_old: np = x_old
+        self.matrix = diagmatrix.rdiagmatrix(x_new.size)
+        self._accuracy = accurancy.maxvectoraccuracy(self.x_new, self.x_old, self.matrix)
+        self.xhistory = np.zeros(config.maxiter+1)
+        self.xhistory[0] = x_new
+        self.accuracyhistory = np.zeros(config.maxiter+1)
         self.accuracyhistory[0] = self._accuracy
     def state_version(self, itmark):
         self._itmark = itmark
-        self._accuracy = accurancy.maxvectoraccuracy(self.x_new, self.x_old)
-        self.accuracyhistory[itmark] = accurancy.maxvectoraccuracy(self.x_new, self.x_old)
+        self._accuracy = accurancy.maxvectoraccuracy(self.x_new, self.x_old, self.matrix)
+        self.accuracyhistory[itmark] = accurancy.maxvectoraccuracy(self.x_new, self.x_old, self.matrix)
+        self.xhistory[itmark] = self.x_new
     def accuracyget(self):
         return(self._accuracy)
     def itmarkget(self):
         return(self._itmark)
     def isNeedToComplete(self):
         eps = config.eps
-        return(self.accuracy<=eps)
+        return(self._accuracy<=eps)
     # def PlotAccuracyGraphic(self):
     #     marks = np.zeros((len(self.x_new)))
     #     for i in range(1,len(self.x_new)):
