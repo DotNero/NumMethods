@@ -52,7 +52,7 @@ def solution(matrix, fvec):
                 S = 0
                 for j in range(n):
                     if (j != k): S = S + matrix[k,j] * I_D.x_new[j]
-                I_D.x_new[k] = fvec[k] / matrix[k, k] - S / matrix[k, k]
+                I_D.x_new[k] = -fvec[k] / matrix[k, k] - S / matrix[k, k]
 
             if I_D.isNeedToComplete():  # проверка на выход
                 break

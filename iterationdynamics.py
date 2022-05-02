@@ -8,17 +8,18 @@ class IterationDynamic(object):
         self._itmark = 0
         self.x_new: np = x_new
         self.x_old: np = x_old
-        self.matrix = diagmatrix.rdiagmatrix(x_new.size)
+        self.matrix = diagmatrix.rdiagmatrix(len(x_new))
         self._accuracy = accurancy.maxvectoraccuracy(self.x_new, self.x_old, self.matrix)
-        self.xhistory = np.zeros(config.maxiter+1)
-        self.xhistory[0] = x_new
+        self.xhistory = np.zeros((len(x_new), config.maxiter+1))
+        for i in range(x_new.size): self.xhistory[i, 0] = x_new[i]
         self.accuracyhistory = np.zeros(config.maxiter+1)
         self.accuracyhistory[0] = self._accuracy
     def state_version(self, itmark):
         self._itmark = itmark
         self._accuracy = accurancy.maxvectoraccuracy(self.x_new, self.x_old, self.matrix)
         self.accuracyhistory[itmark] = accurancy.maxvectoraccuracy(self.x_new, self.x_old, self.matrix)
-        self.xhistory[itmark] = self.x_new
+        for i in range(len(self.x_new)):
+            self.xhistory[i,itmark,] = self.x_new[i]
     def accuracyget(self):
         return(self._accuracy)
     def itmarkget(self):

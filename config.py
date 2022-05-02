@@ -1,3 +1,4 @@
-n:int = 10
+N:int = 10
+n:int = N+1
 eps = (1/n)**3
-maxiter = 100
+maxiter = 57

@@ -34,6 +34,12 @@ def fvector(n):
     return(fvec)
 def rdiagmatrix(n):
     matrixx = dia_matrix((matrixofdiagonals(n), [0, -1, 1]),shape=(n, n)).toarray()
+    matrixx[n-1,n-1] = 1
+    matrixx[n-1,n-2] = 0
+    matrixx[n-2,n-1] = 0
+    matrixx[0,0] = 1
+    matrixx[0,1] = 0
+    matrixx[1,0] = 0
     return(matrixx)
 #def(alpha, betta, gamma ):
 #def(np.top, np.middle,np.bot):
