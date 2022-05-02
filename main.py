@@ -3,11 +3,13 @@ import diagmatrix
 import progonka
 import config
 import relax
-import accurancy
+import iterationdynamics
 import jacobi
 import coaffarif
 n = config.n
 fv:np = diagmatrix.fvector(n)
 matrix:np = diagmatrix.rdiagmatrix(n)
-print(progonka.solution(matrix, fv, n))
+jacsolution = jacobi.solution(matrix, fv)
+print(jacsolution.x_new)
+#print(progonka.solution(matrix, fv, n))
 
